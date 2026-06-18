@@ -5,7 +5,7 @@ import { Bitcoin, Shield, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 export const Route = createFileRoute("/enquiry")({
   head: () => ({
     meta: [
-      { title: "Crypto Enquiry — Évolia Journal" },
+      { title: "Crypto Enquiry — Capital Chronicle" },
       { name: "description", content: "Get in touch about digital assets, blockchain research, and crypto market intelligence." },
     ],
   }),
@@ -15,12 +15,38 @@ export const Route = createFileRoute("/enquiry")({
 function EnquiryPage() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    name: "", email: "", wallet: "", interest: "Bitcoin", amount: "", message: "",
+    name: "", email: "", number: "", message: "",
   });
 
-  const onSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMsg("");
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.number,
+          message: form.message
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        throw new Error("Failed to submit enquiry.");
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || "An error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -49,7 +75,7 @@ function EnquiryPage() {
             <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-[#f7931a] to-[#627eea] flex items-center justify-center font-bold text-white">
               É
             </div>
-            <span className="font-semibold tracking-tight">Évolia <span className="text-[#f7931a]">/ Crypto</span></span>
+            <span className="font-semibold tracking-tight">Capital Chronicle <span className="text-[#f7931a]">/ Crypto</span></span>
           </Link>
           <Link
             to="/"
@@ -76,13 +102,13 @@ function EnquiryPage() {
                 </span>
               </h1>
               <p className="mt-6 text-slate-400 text-lg leading-relaxed">
-                Institutional-grade intelligence on Bitcoin, Ethereum, stablecoins, MiCA compliance, and on-chain markets — delivered by Évolia's European analysts.
+                Institutional-grade intelligence on Bitcoin, Ethereum, stablecoins, MiCA compliance, and on-chain markets — delivered by Capital Chronicle's Lead analysts.
               </p>
             </div>
 
             <div className="space-y-4">
               {[
-                { icon: Shield, title: "MiCA-aware analysis", desc: "European regulatory frameworks built into every brief." },
+                { icon: Shield, title: "MiCA-aware analysis", desc: "Global regulatory frameworks built into every brief." },
                 { icon: Zap, title: "On-chain in real time", desc: "Flow data across 14 L1 and L2 networks." },
                 { icon: Bitcoin, title: "Asset-class neutrality", desc: "From BTC to RWAs — no token endorsements, ever." },
               ].map(({ icon: Icon, title, desc }) => (
@@ -143,48 +169,31 @@ function EnquiryPage() {
                       <Field label="Full name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
                       <Field label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
                     </div>
-                    <Field label="Wallet address (optional)" placeholder="0x… or bc1…" value={form.wallet} onChange={(v) => setForm({ ...form, wallet: v })} mono />
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Interest</label>
-                        <select
-                          value={form.interest}
-                          onChange={(e) => setForm({ ...form, interest: e.target.value })}
-                          className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm focus:border-[#f7931a]/60 focus:outline-none transition"
-                        >
-                          <option>Bitcoin</option>
-                          <option>Ethereum & L2s</option>
-                          <option>Stablecoins / MiCA</option>
-                          <option>Tokenized RWAs</option>
-                          <option>DeFi research</option>
-                          <option>Custody & compliance</option>
-                        </select>
-                      </div>
-                      <Field label="Allocation size (EUR)" placeholder="e.g. 50,000" value={form.amount} onChange={(v) => setForm({ ...form, amount: v })} />
-                    </div>
+                    <Field label="Contact Number" type="tel" value={form.number} onChange={(v) => setForm({ ...form, number: v })} required />
 
                     <div className="space-y-2">
-                      <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Message</label>
+                      <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Message (Optional)</label>
                       <textarea
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         rows={5}
-                        required
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm focus:border-[#f7931a]/60 focus:outline-none transition resize-none"
                         placeholder="Tell us what you'd like to discuss…"
                       />
                     </div>
 
+                    {errorMsg && <div className="text-red-400 text-sm mt-2">{errorMsg}</div>}
                     <button
                       type="submit"
-                      className="group w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#f7931a] to-[#ff7a45] px-6 py-4 font-medium text-black hover:shadow-[0_0_40px_-10px_rgba(247,147,26,0.8)] transition-all"
+                      disabled={isSubmitting}
+                      className={`group w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#f7931a] to-[#ff7a45] px-6 py-4 font-medium text-black hover:shadow-[0_0_40px_-10px_rgba(247,147,26,0.8)] transition-all ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      Send enquiry
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      {isSubmitting ? "Sending..." : "Send enquiry"}
+                      {!isSubmitting && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
                     </button>
 
                     <p className="text-[11px] text-slate-500 text-center">
-                      By submitting you agree to Évolia's editorial privacy terms. Not investment advice.
+                      By submitting you agree to Capital Chronicle's editorial privacy terms. Not investment advice.
                     </p>
                   </form>
                 </>
@@ -195,8 +204,12 @@ function EnquiryPage() {
       </main>
 
       <footer className="relative z-10 border-t border-white/5 mt-16">
-        <div className="mx-auto max-w-7xl px-6 py-8 flex flex-wrap justify-between gap-4 text-xs text-slate-500">
-          <span>© {new Date().getFullYear()} Évolia Journal — Digital Assets Desk</span>
+        <div className="mx-auto max-w-7xl px-6 py-8 flex flex-col items-center sm:flex-row justify-between gap-4 text-xs text-slate-500">
+          <span>© {new Date().getFullYear()} Capital Chronicle — Digital Assets Desk</span>
+          <div className="flex gap-4">
+            <a href="/privacy" className="hover:text-white transition">Privacy Policy</a>
+            <a href="/terms" className="hover:text-white transition">Terms & Conditions</a>
+          </div>
           <span className="font-mono">block · 871,204 · synced</span>
         </div>
       </footer>

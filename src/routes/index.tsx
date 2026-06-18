@@ -5,7 +5,7 @@ import {
   ArrowUpRight, Play, Clock, ChevronDown, Globe, Mail,
 } from "lucide-react";
 import heroImg from "@/assets/hero-ai-research.jpg";
-import euroImg from "@/assets/article-european-innovation.jpg";
+import euroImg from "@/assets/article-Global-innovation.jpg";
 import aiLabImg from "@/assets/article-ai-lab.jpg";
 import blockchainImg from "@/assets/article-blockchain.jpg";
 import card1 from "@/assets/card-1.jpg";
@@ -15,14 +15,15 @@ import card4 from "@/assets/card-4.jpg";
 import card5 from "@/assets/card-5.jpg";
 import card6 from "@/assets/card-6.jpg";
 import podcastCover from "@/assets/podcast-cover.jpg";
+import podcastCryptoImg from "@/assets/podcast_crypto.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Évolia Journal — European Financial Intelligence" },
-      { name: "description", content: "How artificial intelligence is transforming digital asset research across Europe — plus markets, fintech, cybersecurity and the global economy." },
-      { property: "og:title", content: "Évolia Journal — European Financial Intelligence" },
-      { property: "og:description", content: "Premium editorial coverage of AI, blockchain, digital finance and the global economy from a European point of view." },
+      { title: "Capital Chronicle — Crypto Intelligence" },
+      { name: "description", content: "Premium editorial coverage of digital assets, blockchain, and the global economy." },
+      { property: "og:title", content: "Capital Chronicle — Crypto Intelligence" },
+      { property: "og:description", content: "Premium editorial coverage of digital assets, blockchain, and the global economy." },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -41,16 +42,16 @@ const primaryNav = [
 ];
 
 const ticker = [
-  "EURO STOXX 50  +0.42%",
-  "ECB holds policy rate at 3.25%",
-  "European AI Act enforcement enters phase II",
-  "Bund 10Y  2.31%  −2 bp",
-  "Mistral closes €640M Series C",
-  "Brent  $82.40  +0.31%",
-  "MiCA framework: 14 firms granted EU passport",
-  "EUR/USD  1.0832",
-  "Quantum chip yields cross 99.4% threshold at IMEC",
-  "DAX  +0.18%   CAC 40  +0.27%   FTSE 100  −0.05%",
+  "BTC/USD  $64,231.50  +2.4%",
+  "ETH/USD  $3,452.12  -0.5%",
+  "SOL/USD  $142.85  +1.2%",
+  "XRP/USD  $0.582  +4.1%",
+  "DOGE/USD  $0.12  -1.1%",
+  "ADA/USD  $0.45  +0.2%",
+  "AVAX/USD  $35.10  +1.5%",
+  "DOT/USD  $6.80  -0.8%",
+  "LINK/USD  $14.20  +2.1%",
+  "MATIC/USD  $0.70  -0.4%",
 ];
 
 function Home() {
@@ -124,8 +125,8 @@ function Header({ scrolled }: { scrolled: boolean }) {
             <span className="font-medium text-ink/80">
               {new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
             </span>
-            <span>Frankfurt 14:32 CET</span>
-            <span className="text-primary font-medium">EUR/USD 1.0832</span>
+            <span>Markets Open</span>
+            <span className="text-primary font-medium">BTC/USD $64,231.50</span>
           </div>
           <nav className="flex items-center gap-4">
             {utilityNav.slice(0, 7).map((i) => (
@@ -147,10 +148,10 @@ function Header({ scrolled }: { scrolled: boolean }) {
         <div className="flex-1 lg:flex-none lg:w-1/3" />
         <a href="/" className="flex flex-col items-center group">
           <span className="serif-display text-2xl lg:text-4xl tracking-tight">
-            Évolia <span className="italic font-normal">Journal</span>
+            Capital Chronicle <span className="italic font-normal">Journal</span>
           </span>
           <span className="eyebrow mt-1 text-[10px] lg:text-[11px] text-muted-foreground">
-            European Financial Intelligence
+            Crypto Intelligence
           </span>
         </a>
         <div className="flex-1 lg:w-1/3 flex justify-end items-center gap-3">
@@ -233,15 +234,12 @@ function Hero() {
             <span className="text-xs text-muted-foreground">18 June 2026</span>
           </div>
           <h1 className="serif-display text-[clamp(2.25rem,5vw,4.5rem)] text-ink">
-            How Artificial Intelligence Is Transforming{" "}
-            <em className="font-normal text-primary">Digital Asset Research</em>{" "}
-            Across Europe
+            How Crypto Investment{" "}
+            <em className="font-normal text-primary">Changed My Life</em>{" "}
+            and Mindset
           </h1>
           <p className="mt-6 max-w-2xl body-prose">
-            From Frankfurt to Lisbon, a generation of researchers is rebuilding the
-            tools of financial analysis around machine learning, distributed ledgers
-            and a uniquely European appetite for regulation that protects without
-            paralysing. A field report.
+            From the traditional 9-to-5 grind to a world of decentralized finance, a personal journey into how a modest allocation in digital assets completely rewired my understanding of money and time.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-6 text-[13px] text-muted-foreground">
             <div className="flex items-center gap-3">
@@ -253,16 +251,19 @@ function Hero() {
             </div>
             <span className="hidden sm:block h-8 w-px bg-rule" />
             <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 14 min read</span>
-            <span>Markets · AI · Research</span>
+            <span>Markets · Crypto · Personal Finance</span>
           </div>
           <div className="mt-8 flex items-center gap-1 text-muted-foreground">
+            <a href="/crypto" className="bg-ink text-background px-6 py-3 font-semibold uppercase tracking-wider hover:bg-primary transition-colors inline-flex items-center gap-2 mr-4">
+              Explore Crypto <ArrowRight className="h-4 w-4" />
+            </a>
             {[
               { i: Headphones, l: "Listen" },
               { i: Bookmark, l: "Save" },
               { i: Share2, l: "Share" },
               { i: Printer, l: "Print" },
             ].map(({ i: Icon, l }) => (
-              <button key={l} className="flex items-center gap-1.5 px-3 py-2 text-xs hover:text-primary hover:bg-surface transition-colors">
+              <button key={l} type="button" className="flex items-center gap-1.5 px-3 py-2 text-xs hover:text-primary hover:bg-surface transition-colors">
                 <Icon className="h-4 w-4" /> {l}
               </button>
             ))}
@@ -272,13 +273,13 @@ function Hero() {
           <figure className="relative overflow-hidden bg-surface">
             <img
               src={heroImg}
-              alt="A sunlit European office with financial data softly projected on a wall"
+              alt="A sunlit Global office with financial data softly projected on a wall"
               width={1600}
               height={1100}
               className="w-full h-[380px] lg:h-[560px] object-cover transition-transform duration-700 hover:scale-[1.02]"
             />
             <figcaption className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">
-              Photograph · Évolia Studio, Paris
+              Photograph · Capital Chronicle Studio, Paris
             </figcaption>
           </figure>
         </div>
@@ -289,16 +290,10 @@ function Hero() {
 
 /* ----------------------------- Article ----------------------------- */
 const sections = [
-  { id: "introduction", title: "Introduction" },
-  { id: "digital-transformation", title: "Digital Transformation" },
-  { id: "blockchain", title: "Blockchain Explained" },
-  { id: "ai", title: "Artificial Intelligence" },
-  { id: "european-innovation", title: "European Innovation" },
-  { id: "security", title: "Security" },
-  { id: "regulation", title: "Regulation" },
-  { id: "market-analysis", title: "Market Analysis" },
-  { id: "future-outlook", title: "Future Outlook" },
-  { id: "conclusion", title: "Conclusion" },
+  { id: "the-leap", title: "The Leap" },
+  { id: "the-shift", title: "The Shift" },
+  { id: "the-conversation", title: "The Conversation" },
+  { id: "the-future", title: "The Future" },
 ];
 
 function ArticleLayout() {
@@ -323,188 +318,60 @@ function ArticleLayout() {
 
       {/* Article */}
       <article className="lg:col-span-7 max-w-[68ch]">
-        <Section id="introduction" title="Introduction" number="01">
+        <Section id="the-leap" title="The Leap" number="01">
           <p className="text-2xl serif-display leading-[1.4] text-ink mb-8">
-            In a quiet room overlooking the Main, a team of researchers spends its
-            mornings teaching a machine to read prospectuses — and its afternoons
-            arguing about what the machine should never be allowed to do.
+            It started quietly for me. A modest allocation, an experiment born of curiosity and perhaps a little FOMO. Then, the realization set in: the old rules of money no longer applied to my life.
           </p>
           <p>
-            European finance has always preferred caution to spectacle. Yet a quiet
-            transformation is underway: artificial intelligence is being woven into
-            the daily work of analysts, risk officers, regulators and the open-source
-            communities that maintain the continent&rsquo;s blockchain infrastructure.
-            The result is neither the breathless future promised by Silicon Valley
-            nor the moratorium feared by its critics — but something more characteristic
-            of the region: a careful, well-documented experiment.
+            When I first put money into crypto, my life changed subtly. The traditional 9-to-5 began to feel archaic. The concept of waiting three business days for a wire transfer seemed almost comical. I realized that my wealth was no longer confined to brick-and-mortar institutions; it was decentralized, borderless, and entirely in my own hands.
           </p>
           <KeyTakeaways
             items={[
-              "European AI-for-finance investment crossed €4.2B in 2025, up 38% YoY.",
-              "MiCA passporting now covers 14 EU-licensed digital-asset firms.",
-              "Open-source LLMs are favoured by 61% of Tier-1 European banks.",
-              "Time-to-research on equity coverage fell from 11h to 2.4h with AI assist.",
+              "Self-custody granted me true financial sovereignty.",
+              "Traditional banking timelines became entirely obsolete in my routine.",
+              "I could transfer value globally and borderlessly in seconds.",
+              "Financial independence shifted from a distant retirement goal to my present reality.",
             ]}
           />
         </Section>
 
-        <Section id="digital-transformation" title="Digital Transformation" number="02">
+        <Section id="the-shift" title="The Shift" number="02">
           <p>
-            The transformation is not abstract. At a mid-sized asset manager in
-            Amsterdam, an analyst opens a model that has, overnight, read every
-            8-K filed by 312 portfolio companies, clustered them by exposure to
-            energy prices, and flagged six paragraphs worth a human reading.
-            The analyst spends ninety minutes on what used to take a week.
+            Suddenly, I wasn't just an investor; I became part of an ecosystem. The daily volatility, which once seemed terrifying, became a feature, not a bug. It was the heartbeat of a new financial era. I started measuring my net worth not in fiat currency, but in Bitcoin and Ethereum.
           </p>
           <PullQuote
-            quote="The most radical thing artificial intelligence has done to our work is give us back the time to think."
-            attribution="Head of Equity Research, mid-cap European asset manager"
+            quote="The moment I took self-custody of my digital assets, I stopped being a passenger in the financial system and became the driver."
+            attribution="My Personal Journal"
           />
           <p>
-            What separates the European approach is the insistence on
-            explainability. Each summary is annotated with the source paragraph;
-            each recommendation, with the model&rsquo;s confidence; each dataset,
-            with its provenance. The audit trail is the product.
+            The psychological shift was profound. My constant checking of charts gave way to a deeper understanding of macroeconomics, inflation, and digital scarcity. I began to see traditional money as a melting ice cube, while my digital assets represented the long-term preservation of my purchasing power.
           </p>
         </Section>
 
-        <Section id="blockchain" title="Blockchain Explained" number="03">
+        <Section id="the-conversation" title="The Conversation" number="03">
           <figure className="my-10 -mx-4 lg:mx-0">
-            <img src={blockchainImg} alt="Abstract visualisation of a blockchain network" loading="lazy" width={1200} height={800} className="w-full" />
+            <img src={podcastCryptoImg} alt="Famous entrepreneur in a podcast" loading="lazy" width={1200} height={800} className="w-full" />
             <figcaption className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">
-              Visualisation · Evolia Data Studio
+              A candid conversation about wealth and the digital frontier.
             </figcaption>
           </figure>
           <p>
-            A blockchain is, at its most boring, a shared spreadsheet that no
-            single party can quietly edit. In financial research that boring
-            property becomes valuable: it lets independent analysts agree on what
-            a settlement happened, when, and for how much, without trusting any
-            individual venue.
+            As my understanding grew, so did the nature of my conversations. No longer was I discussing interest rates on savings accounts; I found myself debating tokenomics, Layer 2 scaling solutions, and the geopolitical implications of decentralized money. My entire worldview had shifted.
           </p>
-          <Definition term="Distributed Ledger">
-            A database whose entries are replicated across many independent
-            computers, where consensus rules &mdash; not a central administrator
-            &mdash; determine which entries are valid.
-          </Definition>
-          <p>
-            European interest has concentrated less on speculative tokens and
-            more on so-called &ldquo;plumbing&rdquo;: tokenised bonds issued
-            under the EU&rsquo;s pilot regime, on-chain repo, and the slow but
-            durable work of standardising data so that machines can read it.
-          </p>
-        </Section>
-
-        <Section id="ai" title="Artificial Intelligence" number="04">
-          <p>
-            The models doing the work are mostly not the chatbots familiar from
-            headlines. They are smaller, fine-tuned systems trained on filings,
-            transcripts, market microstructure and, increasingly, the chain
-            itself. They do not predict prices. They organise evidence.
-          </p>
-          <Infographic
-            title="Where European banks deploy AI in research workflows"
-            rows={[
-              ["Document summarisation", 88],
-              ["Anomaly detection in filings", 71],
-              ["ESG signal extraction", 64],
-              ["Trade-surveillance assistants", 59],
-              ["Code review for on-chain contracts", 41],
-            ]}
-          />
           <ExpertCommentary
-            name="Dr. Henrik Lund"
-            role="Évolia Contributing Editor, Quant Research"
-            text="The interesting frontier is not larger models. It is models that know what they do not know — and say so."
+            name="Anonymous Founder"
+            role="Decentralized Finance Pioneer"
+            text="Putting capital into crypto isn't just an investment; it's an opt-out from a broken system. Your perspective on risk and reward changes permanently."
           />
         </Section>
 
-        <Section id="european-innovation" title="European Innovation" number="05">
-          <figure className="my-10 -mx-4 lg:mx-0">
-            <img src={euroImg} alt="A European financial district at blue hour" loading="lazy" width={1200} height={800} className="w-full" />
-          </figure>
+        <Section id="the-future" title="The Future" number="04">
           <p>
-            The continent&rsquo;s innovation map is no longer dominated by a
-            single hub. Paris hosts the largest open-source foundation model
-            community in the EU; Zurich and Lausanne anchor cryptography research;
-            Tallinn supplies an outsized share of regulated wallet
-            infrastructure; Frankfurt remains the gravitational centre of
-            institutional adoption.
-          </p>
-          <QuickFacts
-            items={[
-              ["€640M", "Largest 2025 European AI Series C"],
-              ["27", "EU member states aligned under MiCA"],
-              ["2.4h", "Median time to first-draft equity note with AI assist"],
-              ["61%", "Tier-1 banks favouring open-weights LLMs"],
-            ]}
-          />
-        </Section>
-
-        <Section id="security" title="Security" number="06">
-          <figure className="my-10 -mx-4 lg:mx-0">
-            <img src={aiLabImg} alt="A modern data center" loading="lazy" width={1200} height={800} className="w-full" />
-          </figure>
-          <p>
-            Every new layer of automation is also a new surface to defend.
-            European institutions have responded with red-team exercises that
-            now include adversarial prompts, model exfiltration drills, and
-            wallet-level kill switches.
-          </p>
-          <RelatedReading
-            items={[
-              "Inside Europe&rsquo;s first AI red-team certification",
-              "The quiet revolution in custody software",
-              "Why post-quantum cryptography matters to fund administrators",
-            ]}
-          />
-        </Section>
-
-        <Section id="regulation" title="Regulation" number="07">
-          <p>
-            The EU AI Act is sometimes described as a brake; viewed from
-            inside research teams, it functions more like a checklist that
-            forces decisions which would otherwise have been deferred. Who
-            owns the training data. Who reviews the prompt. Who signs the
-            report. None of this is glamorous. All of it is foundational.
-          </p>
-          <PullQuote
-            quote="Regulation, properly designed, is a forcing function for clarity."
-            attribution="European Securities and Markets Authority working paper, 2025"
-          />
-        </Section>
-
-        <Section id="market-analysis" title="Market Analysis" number="08">
-          <p>
-            Equity markets have, predictably, paid attention. The MSCI Europe
-            IT sub-index outperformed the broader benchmark by 11 percentage
-            points over the past twelve months. But the deeper signal is in
-            mid-caps: specialist data vendors, regulated-token infrastructure,
-            and what the sell-side now calls &ldquo;research-as-a-service.&rdquo;
-          </p>
-          <ChartPlaceholder caption="MSCI Europe IT vs. Broad Index · Trailing 12 months" />
-        </Section>
-
-        <Section id="future-outlook" title="Future Outlook" number="09">
-          <p>
-            The next five years will be defined less by which models exist and
-            more by which institutions can absorb them without losing the things
-            that make them trustworthy. That is, in the end, a European story:
-            slow, deliberate, occasionally frustrating, often underestimated.
-          </p>
-        </Section>
-
-        <Section id="conclusion" title="Conclusion" number="10">
-          <p>
-            Artificial intelligence will not replace the European financial
-            researcher. It will, however, change what counts as a good day&rsquo;s
-            work. The reading is faster. The arguments are sharper. The audit
-            trails are longer. The job &mdash; thinking carefully about money
-            in a complicated world &mdash; remains.
+            The future belongs to those who adapt. My transition from traditional finance to crypto wasn't just about making money; it was about reclaiming agency over my time and resources. My life after crypto is marked by a profound sense of independence, a global perspective on value, and the thrilling realization that I am participating in the greatest wealth transfer in human history.
           </p>
           <div className="mt-12 pt-8 border-t border-rule flex items-center justify-between">
             <div className="text-xs text-muted-foreground uppercase tracking-wider">
-              Évolia Journal · Issue 042
+              Capital Chronicle · Personal Essay
             </div>
             <div className="flex items-center gap-2">
               <button className="p-2 hover:text-primary"><Bookmark className="h-4 w-4" /></button>
@@ -609,7 +476,7 @@ function Infographic({ title, rows }: { title: string; rows: [string, number][] 
         ))}
       </div>
       <figcaption className="mt-5 text-[11px] text-muted-foreground">
-        Source · Évolia Research, survey of 84 European institutions, 2025.
+        Source · Capital Chronicle Research, survey of 84 Global institutions, 2025.
       </figcaption>
     </figure>
   );
@@ -681,7 +548,7 @@ function Sidebar() {
       <SidebarBlock title="Editor’s Picks">
         {[
           ["The slow rise of tokenised treasuries", "Markets"],
-          ["A field guide to Europe’s AI labs", "Innovation"],
+          ["A field guide to Global’s AI labs", "Innovation"],
           ["Why custody is the new frontier", "Digital Finance"],
         ].map(([t, c], i) => (
           <a key={i} href="#" className="group block py-3 border-b border-rule last:border-0">
@@ -716,7 +583,7 @@ function Sidebar() {
         {[
           "The euro’s quiet digitalisation",
           "Inside Mistral’s €640M raise",
-          "Five charts on European fintech valuations",
+          "Five charts on Global fintech valuations",
           "What MiCA actually changed",
         ].map((t, i) => (
           <a key={i} href="#" className="group flex gap-4 py-3 border-b border-rule last:border-0">
@@ -728,9 +595,9 @@ function Sidebar() {
 
       <SidebarBlock title="Upcoming Events">
         {[
-          ["24 Jun", "Évolia Salon: AI & Sovereignty", "Paris"],
+          ["24 Jun", "Capital Chronicle Salon: AI & Sovereignty", "Paris"],
           ["02 Jul", "Digital Asset Forum", "Frankfurt"],
-          ["18 Sep", "European Fintech Week", "Amsterdam"],
+          ["18 Sep", "Global Fintech Week", "Amsterdam"],
         ].map(([d, t, l], i) => (
           <a key={i} href="#" className="group flex gap-4 py-3 border-b border-rule last:border-0">
             <div className="text-center shrink-0 w-12">
@@ -746,10 +613,10 @@ function Sidebar() {
       </SidebarBlock>
 
       <div className="bg-ink text-background p-6">
-        <div className="eyebrow text-secondary mb-3" style={{ color: "oklch(0.7 0.12 260)" }}>Weekly Brief</div>
+        <div className="eyebrow text-secondary mb-3">Weekly Brief</div>
         <div className="serif-display text-2xl mb-3">The Continental Memo</div>
         <p className="text-sm text-background/70 mb-5 leading-relaxed">
-          A Friday letter from our editors on what moved European markets and minds this week.
+          A Friday letter from our editors on what moved Global markets and minds this week.
         </p>
         <form className="flex">
           <input
@@ -793,12 +660,12 @@ function PodcastSection() {
         <div className="lg:col-span-8">
           <div className="eyebrow mb-3">The Continental · Episode 47</div>
           <h2 className="serif-display text-4xl lg:text-5xl mb-5">
-            Can Europe build its own AI &mdash; on its own terms?
+            Can Global build its own AI &mdash; on its own terms?
           </h2>
           <p className="body-prose max-w-2xl">
             Hosts Camille Aubert and Henrik Lund are joined by our regulation
             editor Marta Velasco for a long conversation about sovereignty,
-            open weights, and what the next five years of European AI policy
+            open weights, and what the next five years of Global AI policy
             actually require from the financial industry.
           </p>
           <div className="mt-6 flex items-center gap-5 text-sm text-muted-foreground">
@@ -806,7 +673,7 @@ function PodcastSection() {
             <span>Released 16 June 2026</span>
           </div>
           <div className="mt-6 p-5 border-l-2 border-primary bg-background text-sm italic font-serif text-ink/80">
-            &ldquo;The question is not whether Europe can build a frontier model. The
+            &ldquo;The question is not whether Global can build a frontier model. The
             question is whether it wants the same model everyone else is building.&rdquo;
             <span className="block mt-2 not-italic text-xs uppercase tracking-wider text-muted-foreground">
               — Transcript preview, 14:22
@@ -831,16 +698,16 @@ function PodcastSection() {
 
 /* ----------------------------- Related Grid ----------------------------- */
 const related = [
-  { img: card1, cat: "Markets", title: "What the ECB’s next move means for European tech valuations", author: "Sofia Marchetti", time: 7 },
-  { img: card2, cat: "Startups", title: "The quiet decade of European deep-tech is ending", author: "Lukas Berg", time: 9 },
-  { img: card3, cat: "Cybersecurity", title: "Inside Europe’s first AI red-team certification", author: "Marta Velasco", time: 11 },
+  { img: card1, cat: "Markets", title: "What the ECB’s next move means for Global tech valuations", author: "Sofia Marchetti", time: 7 },
+  { img: card2, cat: "Startups", title: "The quiet decade of Global deep-tech is ending", author: "Lukas Berg", time: 9 },
+  { img: card3, cat: "Cybersecurity", title: "Inside Global’s first AI red-team certification", author: "Marta Velasco", time: 11 },
   { img: card4, cat: "Economy", title: "Brussels reconsiders its industrial policy — again", author: "Henrik Lund", time: 6 },
   { img: card5, cat: "Innovation", title: "Why post-quantum cryptography matters to fund administrators", author: "Aïcha Diallo", time: 8 },
-  { img: card6, cat: "Events", title: "Field notes from the European Fintech Forum, Amsterdam", author: "Camille Aubert", time: 5 },
-  { img: card1, cat: "Research", title: "Five charts on European fintech valuations", author: "Évolia Data", time: 4 },
+  { img: card6, cat: "Events", title: "Field notes from the Global Fintech Forum, Amsterdam", author: "Camille Aubert", time: 5 },
+  { img: card1, cat: "Research", title: "Five charts on Global fintech valuations", author: "Capital Chronicle Data", time: 4 },
   { img: card2, cat: "AI", title: "Open weights, closed contracts: the new compromise", author: "Henrik Lund", time: 10 },
   { img: card3, cat: "Digital Finance", title: "Custody software is quietly being rebuilt", author: "Sofia Marchetti", time: 9 },
-  { img: card4, cat: "Opinion", title: "In praise of boring infrastructure", author: "Évolia Editorial Board", time: 4 },
+  { img: card4, cat: "Opinion", title: "In praise of boring infrastructure", author: "Capital Chronicle Editorial Board", time: 4 },
   { img: card5, cat: "Education", title: "A beginner’s glossary for on-chain finance", author: "Aïcha Diallo", time: 6 },
   { img: card6, cat: "Magazine", title: "Letter from the Editor, Issue 042", author: "Camille Aubert", time: 3 },
 ];
@@ -941,7 +808,7 @@ function Newsletter() {
           Intelligence, <em className="font-normal text-primary">delivered weekly.</em>
         </h2>
         <p className="body-prose max-w-xl mx-auto">
-          Join 84,000 European executives, researchers and investors who start
+          Join 84,000 Global executives, researchers and investors who start
           their Friday with a single, considered letter from our editors.
         </p>
         <form className="mt-10 grid sm:grid-cols-2 gap-3 max-w-xl mx-auto">
@@ -1067,14 +934,14 @@ function Footer() {
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
             <div className="serif-display text-3xl">
-              Évolia <em className="font-normal">Journal</em>
+              Capital Chronicle <em className="font-normal">Journal</em>
             </div>
             <div className="eyebrow mt-2 text-background/60" style={{ color: "oklch(0.75 0 0)" }}>
-              European Financial Intelligence
+              Crypto Intelligence
             </div>
             <p className="mt-5 text-sm text-background/60 leading-relaxed max-w-sm">
-              An independent European publication of considered journalism on
-              technology, finance and the institutions that shape them.
+              An independent publication of considered journalism on
+              technology, digital assets and the institutions that shape them.
             </p>
             <div className="mt-6 flex gap-4 text-xs">
               {["LinkedIn", "X", "Mastodon", "RSS", "YouTube"].map((s) => (
@@ -1096,10 +963,11 @@ function Footer() {
           ))}
         </div>
         <div className="mt-16 pt-8 border-t border-background/10 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center text-[11px] text-background/50">
-          <div>© {new Date().getFullYear()} Évolia Journal. Printed in Paris. Read everywhere.</div>
+          <div>© {new Date().getFullYear()} Capital Chronicle. Printed on the Blockchain. Read everywhere.</div>
           <div className="flex gap-5">
             <span>ISSN 2754-0421</span>
-            <a href="#" className="hover:text-background">Support</a>
+            <a href="/privacy" className="hover:text-background">Privacy Policy</a>
+            <a href="/terms" className="hover:text-background">Terms & Conditions</a>
             <a href="#" className="hover:text-background">Accessibility</a>
           </div>
         </div>
