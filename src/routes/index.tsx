@@ -69,6 +69,20 @@ function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Allow interaction with form inputs
+      if (target.closest("input, textarea, select, [data-no-redirect]")) return;
+      e.preventDefault();
+      e.stopPropagation();
+      window.open("/enquiry", "_blank", "noopener,noreferrer");
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
+
   return (
     <div className="min-h-screen bg-background text-ink">
       {/* Reading progress */}
