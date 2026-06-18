@@ -5,8 +5,8 @@ import { Bitcoin, Shield, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 export const Route = createFileRoute("/enquiry")({
   head: () => ({
     meta: [
-      { title: "Crypto Enquiry — Capital Chronicle" },
-      { name: "description", content: "Get in touch about digital assets, blockchain research, and crypto market intelligence." },
+      { title: "Demande Crypto — Capital Chronicle" },
+      { name: "description", content: "Contactez-nous concernant les actifs numériques, la recherche sur la blockchain et l'intelligence du marché crypto." },
     ],
   }),
   component: EnquiryPage,
@@ -40,10 +40,10 @@ function EnquiryPage() {
       if (result.success) {
         setSubmitted(true);
       } else {
-        throw new Error("Failed to submit enquiry.");
+        throw new Error("Échec de la soumission de la demande.");
       }
     } catch (err: any) {
-      setErrorMsg(err.message || "An error occurred.");
+      setErrorMsg(err.message || "Une erreur s'est produite.");
     } finally {
       setIsSubmitting(false);
     }
@@ -81,7 +81,7 @@ function EnquiryPage() {
             to="/"
             className="text-xs uppercase tracking-[0.2em] text-slate-400 hover:text-white transition"
           >
-            ← Back to Journal
+            ← Retour au Journal
           </Link>
         </div>
       </header>
@@ -93,24 +93,24 @@ function EnquiryPage() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-[#f7931a]/30 bg-[#f7931a]/5 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#f7931a]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#f7931a] animate-pulse" />
-                Digital Assets Desk
+                Bureau des Actifs Numériques
               </span>
               <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
-                Speak with our{" "}
+                Parlez avec notre{" "}
                 <span className="bg-gradient-to-r from-[#f7931a] via-[#ffb84d] to-[#627eea] bg-clip-text text-transparent">
-                  crypto research desk
+                  bureau de recherche crypto
                 </span>
               </h1>
               <p className="mt-6 text-slate-400 text-lg leading-relaxed">
-                Institutional-grade intelligence on Bitcoin, Ethereum, stablecoins, MiCA compliance, and on-chain markets — delivered by Capital Chronicle's Lead analysts.
+                Renseignements de niveau institutionnel sur Bitcoin, Ethereum, les pièces stables, la conformité MiCA et les marchés on-chain — fournis par les analystes principaux de Capital Chronicle.
               </p>
             </div>
 
             <div className="space-y-4">
               {[
-                { icon: Shield, title: "MiCA-aware analysis", desc: "Global regulatory frameworks built into every brief." },
-                { icon: Zap, title: "On-chain in real time", desc: "Flow data across 14 L1 and L2 networks." },
-                { icon: Bitcoin, title: "Asset-class neutrality", desc: "From BTC to RWAs — no token endorsements, ever." },
+                { icon: Shield, title: "Analyse conforme MiCA", desc: "Cadres réglementaires mondiaux intégrés dans chaque rapport." },
+                { icon: Zap, title: "On-chain en temps réel", desc: "Données de flux à travers 14 réseaux L1 et L2." },
+                { icon: Bitcoin, title: "Neutralité des classes d'actifs", desc: "Du BTC aux RWAs — aucune recommandation de jeton, jamais." },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.02]">
                   <div className="h-10 w-10 shrink-0 rounded-lg bg-gradient-to-br from-[#f7931a]/20 to-[#627eea]/20 flex items-center justify-center">
@@ -126,7 +126,7 @@ function EnquiryPage() {
 
             {/* Mini ticker */}
             <div className="rounded-xl border border-white/5 bg-black/30 p-5 font-mono text-xs space-y-2">
-              <div className="flex justify-between text-slate-500 uppercase tracking-wider text-[10px]"><span>Asset</span><span>24h</span></div>
+              <div className="flex justify-between text-slate-500 uppercase tracking-wider text-[10px]"><span>Actif</span><span>24h</span></div>
               {[
                 ["BTC / EUR", "63,420.00", "+1.8%"],
                 ["ETH / EUR", "3,184.20", "+2.4%"],
@@ -152,33 +152,33 @@ function EnquiryPage() {
                   <div className="mx-auto h-16 w-16 rounded-full bg-[#00ffa3]/10 flex items-center justify-center">
                     <CheckCircle2 className="h-8 w-8 text-[#00ffa3]" />
                   </div>
-                  <h2 className="text-2xl font-semibold">Enquiry received</h2>
+                  <h2 className="text-2xl font-semibold">Demande reçue</h2>
                   <p className="text-slate-400 max-w-md mx-auto">
-                    A member of our digital assets team will respond within one business day. Block height noted.
+                    Un membre de notre équipe des actifs numériques vous répondra dans un délai d'un jour ouvrable. Hauteur de bloc notée.
                   </p>
                 </div>
               ) : (
                 <>
                   <div className="mb-8">
-                    <h2 className="text-2xl font-semibold">Submit an enquiry</h2>
-                    <p className="text-sm text-slate-400 mt-1">All fields encrypted in transit. No data sold or shared.</p>
+                    <h2 className="text-2xl font-semibold">Soumettre une demande</h2>
+                    <p className="text-sm text-slate-400 mt-1">Tous les champs sont cryptés en transit. Aucune donnée vendue ou partagée.</p>
                   </div>
 
                   <form onSubmit={onSubmit} className="space-y-5">
                     <div className="grid sm:grid-cols-2 gap-5">
-                      <Field label="Full name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
-                      <Field label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
+                      <Field label="Nom complet" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
+                      <Field label="E-mail" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
                     </div>
-                    <Field label="Contact Number" type="tel" value={form.number} onChange={(v) => setForm({ ...form, number: v })} required />
+                    <Field label="Numéro de contact" type="tel" value={form.number} onChange={(v) => setForm({ ...form, number: v })} required />
 
                     <div className="space-y-2">
-                      <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Message (Optional)</label>
+                      <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Message (Optionnel)</label>
                       <textarea
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         rows={5}
                         className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm focus:border-[#f7931a]/60 focus:outline-none transition resize-none"
-                        placeholder="Tell us what you'd like to discuss…"
+                        placeholder="Dites-nous ce dont vous aimeriez discuter…"
                       />
                     </div>
 
@@ -188,12 +188,12 @@ function EnquiryPage() {
                       disabled={isSubmitting}
                       className={`group w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#f7931a] to-[#ff7a45] px-6 py-4 font-medium text-black hover:shadow-[0_0_40px_-10px_rgba(247,147,26,0.8)] transition-all ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      {isSubmitting ? "Sending..." : "Send enquiry"}
+                      {isSubmitting ? "Envoi..." : "Envoyer la demande"}
                       {!isSubmitting && <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />}
                     </button>
 
                     <p className="text-[11px] text-slate-500 text-center">
-                      By submitting you agree to Capital Chronicle's editorial privacy terms. Not investment advice.
+                      En soumettant, vous acceptez les conditions de confidentialité éditoriales de Capital Chronicle. Pas un conseil en investissement.
                     </p>
                   </form>
                 </>
@@ -205,12 +205,12 @@ function EnquiryPage() {
 
       <footer className="relative z-10 border-t border-white/5 mt-16">
         <div className="mx-auto max-w-7xl px-6 py-8 flex flex-col items-center sm:flex-row justify-between gap-4 text-xs text-slate-500">
-          <span>© {new Date().getFullYear()} Capital Chronicle — Digital Assets Desk</span>
+          <span>© {new Date().getFullYear()} Capital Chronicle — Bureau des Actifs Numériques</span>
           <div className="flex gap-4">
-            <a href="/privacy" className="hover:text-white transition">Privacy Policy</a>
-            <a href="/terms" className="hover:text-white transition">Terms & Conditions</a>
+            <a href="/privacy" className="hover:text-white transition">Politique de Confidentialité</a>
+            <a href="/terms" className="hover:text-white transition">Conditions Générales</a>
           </div>
-          <span className="font-mono">block · 871,204 · synced</span>
+          <span className="font-mono">block · 871,204 · synchronisé</span>
         </div>
       </footer>
     </div>
