@@ -25,6 +25,18 @@ function EnquiryPage() {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg("");
+
+    const cleanNum = form.number.replace(/\s+/g, "");
+    if (!cleanNum) {
+      setErrorMsg("Veuillez entrer un numéro de téléphone");
+      setIsSubmitting(false);
+      return;
+    } else if (!/^(\+41|0041|0)?[1-9]\d{8}$/.test(cleanNum)) {
+      setErrorMsg("Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
