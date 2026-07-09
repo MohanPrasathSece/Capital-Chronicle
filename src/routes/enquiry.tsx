@@ -44,7 +44,7 @@ function EnquiryPage() {
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          phone: form.number,
+          phone: form.number, countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH',
           message: form.message
         })
       });

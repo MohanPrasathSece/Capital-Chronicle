@@ -293,11 +293,20 @@ function CryptoPage() {
                 
                 <div>
                   <label className="block mb-1">Numéro de Contact</label>
-                  <input 
+                  
+<div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
+        <option value="CH">🇨🇭 +41</option>
+        <option value="GB">🇬🇧 +44</option>
+        <option value="CA">🇨🇦 +1</option>
+        <option value="AU">🇦🇺 +61</option>
+    </select>
+<input 
                     type="tel"
                     {...register("number", { required: true })}
                     className="w-full border-2 border-black p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                  />
+                   style={{ flex: 1 }} />
+</div>
                   {errors.number && <span className="text-red-600 text-xs mt-1 block">Le numéro est requis</span>}
                 </div>
                 
