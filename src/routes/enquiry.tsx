@@ -55,6 +55,14 @@ function EnquiryPage() {
         throw new Error("Échec de la soumission de la demande.");
       }
     } catch (err: any) {
+      const rawMsg = (err?.message || err?.toString() || "");
+      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.error("You have already contacted us pls wait");
+        if (typeof setError === 'function') setError("You have already contacted us pls wait");
+        setLoading(false);
+        return;
+      }
+
       setErrorMsg(err.message || "Une erreur s'est produite.");
     } finally {
       setIsSubmitting(false);

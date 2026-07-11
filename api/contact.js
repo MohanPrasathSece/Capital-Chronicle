@@ -64,6 +64,18 @@ export default async function handler(req, res) {
         console.warn("[leads-count] Failed to increment:", err)
       );
     } catch (e) {
+    const rawMsg = (e.message || e.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+
       console.warn("[leads-count] Error triggering increment:", e);
     }
 
@@ -75,7 +87,19 @@ export default async function handler(req, res) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ website: "Capital Chronicle", type: "contact", name: data.name, email: data.email})
         }).catch(() => {});
-      } catch(e){}
+      } catch(e){
+    const rawMsg = (e.message || e.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+}
     }
     if (response.ok) {
       try {
@@ -85,10 +109,34 @@ export default async function handler(req, res) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ website: "Capital Chronicle", type: "contact", name: data.name, email: data.email})
         }).catch(() => {});
-      } catch(e){}
+      } catch(e){
+    const rawMsg = (e.message || e.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+}
     }
     res.status(200).json({ success: response.ok, data: result });
   } catch (error) {
+    const rawMsg = (error.message || error.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+
     res.status(500).json({ success: false, error: error.message });
   }
 }
