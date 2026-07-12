@@ -19,7 +19,7 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validatePhone(formState.phone, formState.countryCode)) {
-      setStatus(\`Invalid phone format. Example: \${COUNTRY_PHONE_PATTERNS[formState.countryCode].example}\`);
+      setStatus(`Invalid phone format. Example: ${COUNTRY_PHONE_PATTERNS[formState.countryCode].example}`);
       return;
     }
 

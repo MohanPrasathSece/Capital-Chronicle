@@ -28,10 +28,28 @@ export default async function handler(req, res) {
     
     const result = await response.text();
     
-    if (response.ok) {
+    // Check if CRM actually rejected it despite a 200 OK
+    const rawMsg = result.toLowerCase();
+    let isInvalid = false;
+    let errorMsg = "CRM Error: " + result;
+
+    if (rawMsg.includes("already exist") || rawMsg.includes("contacted")) {
+        isInvalid = true;
+        errorMsg = "You have already contacted us pls wait";
+    } else {
+        try {
+            const jsonRes = JSON.parse(result);
+            if (jsonRes.success === false) {
+                isInvalid = true;
+                errorMsg = jsonRes.message || jsonRes.error || errorMsg;
+            }
+        } catch(e) {}
+    }
+
+    if (response.ok && !isInvalid) {
       res.status(200).json({ success: true, data: result });
     } else {
-      res.status(response.status).json({ success: false, error: "CRM Error: " + result });
+      res.status(400).json({ success: false, error: errorMsg });
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
