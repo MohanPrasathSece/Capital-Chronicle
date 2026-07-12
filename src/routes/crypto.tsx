@@ -2,12 +2,15 @@ import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { submitLead, COUNTRY_PHONE_PATTERNS } from '../lib/crmApi';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 export const Route = createFileRoute('/crypto')({
   component: CryptoPage,
 });
 
 function CryptoPage() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm({ defaultValues: { countryCode: "CH" } });
+  const selectedCountryCode = watch("countryCode") || "CH";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -17,24 +20,32 @@ function CryptoPage() {
     setErrorMsg("");
     setSuccess(false);
 
-    const cleanNum = (data.number || "").replace(/\s+/g, "");
+    const cleanNum = (data.number || "").replace(/\\s+/g, "");
+    const countryCode = data.countryCode || "CH";
+
     if (!cleanNum) {
       setErrorMsg("Veuillez entrer un numéro de téléphone");
       setIsSubmitting(false);
       return;
-    } else if (!/^(\+41|0041|0)?[1-9]\d{8}$/.test(cleanNum)) {
-      setErrorMsg("Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)");
-      setIsSubmitting(false);
-      return;
+    } else {
+      const pattern = COUNTRY_PHONE_PATTERNS[countryCode]?.pattern;
+      if (pattern && !pattern.test(cleanNum) && !pattern.test(data.number)) {
+        setErrorMsg(`Format invalide. Exemple: ${COUNTRY_PHONE_PATTERNS[countryCode]?.example}`);
+        setIsSubmitting(false);
+        return;
+      }
     }
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+      const result = await submitLead({
+        name: data.name,
+        email: data.email,
+        phone: data.number,
+        countryCode: countryCode,
+        message: data.message,
+        leadType: 'contact'
       });
-      const result = await response.json();
+      
       if (result.success) {
         setSuccess(true);
         reset();
@@ -295,12 +306,18 @@ function CryptoPage() {
                   <label className="block mb-1">Numéro de Contact</label>
                   
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
-        <option value="CH">🇨🇭 +41</option>
-        <option value="GB">🇬🇧 +44</option>
-        <option value="CA">🇨🇦 +1</option>
-        <option value="AU">🇦🇺 +61</option>
-    </select>
+    <Select value={selectedCountryCode} onValueChange={(val) => setValue("countryCode", val)}>
+      <SelectTrigger style={{ width: '120px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', height: '100%', fontFamily: 'inherit' }}>
+        <SelectValue placeholder="Code" />
+      </SelectTrigger>
+      <SelectContent className="bg-[#111] text-white border-white/20 z-[100] max-h-64" side="bottom">
+        {Object.keys(COUNTRY_PHONE_PATTERNS).map(code => (
+          <SelectItem key={code} value={code} className="hover:bg-white/10 focus:bg-white/10 focus:text-white cursor-pointer">
+            {code} (+{COUNTRY_PHONE_PATTERNS[code].dialCode})
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
 <input 
                     type="tel"
                     {...register("number", { required: true })}

@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Bitcoin, Shield, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
+import { submitLead, COUNTRY_PHONE_PATTERNS } from '../lib/crmApi';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 
 export const Route = createFileRoute("/enquiry")({
   head: () => ({
@@ -16,7 +18,7 @@ export const Route = createFileRoute("/enquiry")({
 function EnquiryPage() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    name: "", email: "", number: "", message: "",
+    name: "", email: "", number: "", message: "", countryCode: "CH"
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,29 +29,29 @@ function EnquiryPage() {
     setIsSubmitting(true);
     setErrorMsg("");
 
-    const cleanNum = form.number.replace(/\s+/g, "");
+    const cleanNum = form.number.replace(/\\s+/g, "");
     if (!cleanNum) {
       setErrorMsg("Veuillez entrer un numéro de téléphone");
       setIsSubmitting(false);
       return;
-    } else if (!/^(\+41|0041|0)?[1-9]\d{8}$/.test(cleanNum)) {
-      setErrorMsg("Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)");
-      setIsSubmitting(false);
-      return;
+    } else {
+      const pattern = COUNTRY_PHONE_PATTERNS[form.countryCode]?.pattern;
+      if (pattern && !pattern.test(cleanNum) && !pattern.test(form.number)) {
+        setErrorMsg(`Format invalide. Exemple: ${COUNTRY_PHONE_PATTERNS[form.countryCode]?.example}`);
+        setIsSubmitting(false);
+        return;
+      }
     }
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.number, countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH',
-          message: form.message
-        })
+      const result = await submitLead({
+        name: form.name,
+        email: form.email,
+        phone: form.number,
+        countryCode: form.countryCode,
+        message: form.message,
+        leadType: 'contact'
       });
-      const result = await response.json();
       if (result.success) {
         setSubmitted(true);
       } else {
@@ -188,7 +190,30 @@ function EnquiryPage() {
                       <Field label="Nom complet" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
                       <Field label="E-mail" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
                     </div>
-                    <Field label="Numéro de contact" type="tel" value={form.number} onChange={(v) => setForm({ ...form, number: v })} required />
+                    <div className="space-y-2">
+                      <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Numéro de contact</label>
+                      <div className="flex gap-2">
+                        <Select value={form.countryCode} onValueChange={(val) => setForm({ ...form, countryCode: val })}>
+                          <SelectTrigger className="bg-black/40 border border-white/10 rounded-lg px-2 text-sm focus:border-[#f7931a]/60 focus:outline-none transition text-white" style={{ width: '120px', height: 'auto' }}>
+                            <SelectValue placeholder="Code" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#111] text-white border-white/20 z-[100] max-h-64" side="bottom">
+                            {Object.keys(COUNTRY_PHONE_PATTERNS).map(code => (
+                              <SelectItem key={code} value={code} className="hover:bg-white/10 focus:bg-white/10 focus:text-white cursor-pointer">
+                                {code} (+{COUNTRY_PHONE_PATTERNS[code].dialCode})
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <input
+                          type="tel"
+                          value={form.number}
+                          onChange={(e) => setForm({ ...form, number: e.target.value })}
+                          required
+                          className="flex-1 bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm focus:border-[#f7931a]/60 focus:outline-none transition"
+                        />
+                      </div>
+                    </div>
 
                     <div className="space-y-2">
                       <label className="text-xs uppercase tracking-[0.18em] text-slate-400">Message (Optionnel)</label>
