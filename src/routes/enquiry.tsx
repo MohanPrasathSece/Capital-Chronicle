@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Bitcoin, Shield, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/enquiry")({
   head: () => ({
@@ -57,9 +58,10 @@ function EnquiryPage() {
     } catch (err: any) {
       const rawMsg = (err?.message || err?.toString() || "");
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.success("Vous nous avez déjà contactés. Veuillez patienter.");
+        setSubmitted(true);
         return;
       }
-
       setErrorMsg(err.message || "Une erreur s'est produite.");
     } finally {
       setIsSubmitting(false);
