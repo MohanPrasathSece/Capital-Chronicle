@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       phone: data.phone,
       email: data.email,
       first_name: data.first_name || "Unknown",
-      last_name: data.last_name || "Lead",
+      last_name: data.last_name || "",
       custom_fields: {
         Source_ID: "website",
         How_Much_Invested: data.amount || "0",
