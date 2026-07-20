@@ -10,6 +10,7 @@ interface SubmitLeadInput {
 }
 
 export const COUNTRY_PHONE_PATTERNS: Record<string, { dialCode: string, pattern: RegExp, example: string }> = {
+  "IE": { dialCode: "353", pattern: /^8\d{8}$/, example: "+353 87 123 4567" },
   "CH": { dialCode: "41", pattern: /^(\+41|0041|0)?\s?[1-9]\d{1}\s?\d{3}\s?\d{2}\s?\d{2}$/, example: "+41 79 123 45 67" },
   "FR": { dialCode: "33", pattern: /^(\+33|0033|0)?\s?[1-9]\s?(\d{2}\s?){4}$/, example: "+33 6 12 34 56 78" },
   "BE": { dialCode: "32", pattern: /^(\+32|0032|0)?\s?[1-9]\d{0,2}\s?\d{2,3}\s?\d{2}\s?\d{2}$/, example: "+32 470 12 34 56" },
