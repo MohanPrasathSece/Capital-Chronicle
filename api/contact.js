@@ -33,9 +33,9 @@ export default async function handler(req, res) {
     let isInvalid = false;
     let errorMsg = "CRM Error: " + result;
 
-    if (rawMsg.includes("already exist") || rawMsg.includes("contacted")) {
+    if (response.status === 500 || response.status === 409 || rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
         isInvalid = true;
-        errorMsg = "You have already contacted us pls wait";
+        errorMsg = "You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.";
     } else {
         try {
             const jsonRes = JSON.parse(result);
@@ -52,6 +52,10 @@ export default async function handler(req, res) {
       res.status(400).json({ success: false, error: errorMsg });
     }
   } catch (error) {
+    const rawMsg = (error.message || error.toString() || '').toLowerCase();
+    if (rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
+      return res.status(400).json({ success: false, error: "You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon." });
+    }
     res.status(500).json({ success: false, error: error.message });
   }
 }

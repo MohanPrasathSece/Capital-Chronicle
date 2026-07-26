@@ -58,10 +58,10 @@ function EnquiryPage() {
         throw new Error("Échec de la soumission de la demande.");
       }
     } catch (err: any) {
-      const rawMsg = (err?.message || err?.toString() || "");
-      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
-        toast.success("Merci de nous avoir contactés. Votre message a bien été reçu et notre équipe vous répondra dans les plus brefs délais.");
-        setSubmitted(true);
+      const rawMsg = (err?.message || err?.toString() || "").toLowerCase();
+      if (rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
+        toast.info("You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.");
+        setErrorMsg("You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.");
         return;
       }
       setErrorMsg(err.message || "Une erreur s'est produite.");

@@ -67,7 +67,12 @@ function CryptoPage() {
       }
     } catch (err: unknown) {
       const error = err as Error;
-      setErrorMsg(error.message || "Une erreur s'est produite.");
+      const rawMsg = (error?.message || error?.toString() || "").toLowerCase();
+      if (rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
+        setErrorMsg("You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.");
+      } else {
+        setErrorMsg(error.message || "Une erreur s'est produite.");
+      }
     } finally {
       setIsSubmitting(false);
     }

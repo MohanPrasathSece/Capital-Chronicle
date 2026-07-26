@@ -33,7 +33,12 @@ export function ContactForm() {
       setStatus('Success! Thank you for contacting us.');
       setFormState({ firstName: '', lastName: '', email: '', phone: '', countryCode: 'CH' });
     } else {
-      setStatus('Error submitting form.');
+      const rawMsg = (res.error?.message || res.error?.toString() || "").toLowerCase();
+      if (rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
+        setStatus("You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.");
+      } else {
+        setStatus('Error submitting form.');
+      }
     }
   };
 
