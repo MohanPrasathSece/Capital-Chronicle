@@ -1,3 +1,5 @@
+import { sendMetaLeadEvent } from "./metaConversionsApi.js";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method Not Allowed" });
   try {
@@ -47,6 +49,17 @@ export default async function handler(req, res) {
     }
 
     if (response.ok && !isInvalid) {
+      // Fire-and-forget: Meta Conversions API Lead event
+      sendMetaLeadEvent({
+        email: data.email,
+        phone: data.phone,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        clientIpAddress: req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "",
+        clientUserAgent: req.headers["user-agent"] || "",
+        testEventCode: process.env.META_TEST_EVENT_CODE,
+      }).catch((err) => console.warn("[Meta CAPI] fire-and-forget error:", err));
+
       res.status(200).json({ success: true, data: result });
     } else {
       res.status(400).json({ success: false, error: errorMsg });
