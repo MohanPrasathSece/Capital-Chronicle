@@ -1,7 +1,7 @@
 import crypto from "crypto";
 
 // --- Capital Chronicle Journal Meta Conversions API Config ---
-const META_DATASET_ID = process.env.META_DATASET_ID || "";
+const META_DATASET_ID = process.env.META_DATASET_ID || "61592759903817";
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || "EAAVo00g0MqEBSA7r2g661gBOOHoHt47LH81bIq6jveYhQIXJPuVLQvzqp7s2m8KGHz4DeXVZAp9WMPV2ZCkBGyw120xZAZCySs6oJyNBZBuFtRwmqY4wAg70iqUkueGtBpHTUFSFBZBKB29jNFzt2F1S92HOjW2aIWZC5MqQMvZCSEoULFncqqZBTACZA0x3iHmqnf7QZDZD";
 const META_CRM_NAME = "capital_chronicle_journal";
 
